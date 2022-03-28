@@ -45,6 +45,8 @@ void Scene2::Update(const float deltaTime) {
 
 }
 
+// Changes 
+
 void Scene2::Render()
 {
 	/// Clear the screen
