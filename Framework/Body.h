@@ -30,6 +30,7 @@ public:
 	void setTexture(SDL_Texture* texture_) { texture = texture_; }
 	Vec3 getVelocity() { return vel; }
 	void setVelocity(Vec3 vel_) { vel = vel_; }
+	void setPos(Vec3 pos_) { pos = pos_; }
 	float getRadius() { return r; }
 	float getMass() { return mass; }
 	float getRotationZ() { return rotationZ; }
