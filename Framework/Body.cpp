@@ -2,16 +2,16 @@
 
 Body::Body()
 {
-	pos.x = 15.0f;
-	pos.y = 10.0f;
+	pos.x = 0.0f;
+	pos.y = 0.0f;
 	pos.z = 0.0f;
 
-	vel.x = -5.0f;
+	vel.x = 0.0f;
 	vel.y = 0.0f;
 	vel.z = 0.0f;
 
 	accel.x = 0.0f;
-	accel.y = -9.8f;
+	accel.y = 0.0f;
 	accel.z = 0.0f;
 	rotationZ = 0.0f;
 
