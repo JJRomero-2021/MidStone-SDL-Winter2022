@@ -14,9 +14,9 @@ using namespace std;
 Scene0::Scene0(SDL_Window* sdlWindow_, GameManager* scene_)
 {
 	windowPtr = sdlWindow_;
-	planet = new Body(Vec3(10.0f, 20.0f, 0.0f), Vec3(11.3f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
+	planet = new Body(Vec3(10.0f, 20.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
 	spaceShip = new Body(Vec3(0.0f, 7.8f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
-	obstacle = new Body(Vec3(15.0f, 25.0f, 0.0f), Vec3(11.3f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
+	obstacle = new Body(Vec3(15.0f, 25.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
 	scene = scene_;
 }
 
@@ -90,7 +90,9 @@ void Scene0::HandleEvents(const SDL_Event& sdlEvent)
 	{
 		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_D)
 		{
-			spaceShip->ApplyForce(Vec3(5.0f, 0.0f, 0.0f));
+			Vec3 currpos = spaceShip->getPos();
+			Vec3 newpos = currpos + Vec3(0.5, 0.0, 0.0);
+			spaceShip->setPos(newpos);
 			spaceShip->isMoving(true);
 		}
 	}
@@ -99,14 +101,16 @@ void Scene0::HandleEvents(const SDL_Event& sdlEvent)
 
 		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_D)
 		{
-			spaceShip->ApplyForce(Vec3(0.0f, 0.0f, 0.0f));
+			
 		}
 	}
 	if (sdlEvent.type == SDL_EventType::SDL_KEYDOWN)
 	{
 		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_A)
 		{
-			spaceShip->ApplyForce(Vec3(-5.0f, 0.0f, 0.0f));
+			Vec3 currpos = spaceShip->getPos();
+			Vec3 newpos = currpos + Vec3(-0.5, 0.0, 0.0);
+			spaceShip->setPos(newpos);
 			spaceShip->isMoving(true);
 
 		}
@@ -115,7 +119,7 @@ void Scene0::HandleEvents(const SDL_Event& sdlEvent)
 	{
 		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_A)
 		{
-			spaceShip->ApplyForce(Vec3(0.0f, 0.0f, 0.0f));
+			
 		}
 	}
 
@@ -123,7 +127,9 @@ void Scene0::HandleEvents(const SDL_Event& sdlEvent)
 	{
 		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_W)
 		{
-			spaceShip->ApplyForce(Vec3(0.0f, 5.0f, 0.0f));
+			Vec3 currpos = spaceShip->getPos();
+			Vec3 newpos = currpos + Vec3(0.0, 0.5, 0.0);
+			spaceShip->setPos(newpos);
 			spaceShip->isMoving(true);
 
 		}
@@ -132,7 +138,7 @@ void Scene0::HandleEvents(const SDL_Event& sdlEvent)
 	{
 		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_W)
 		{
-			spaceShip->ApplyForce(Vec3(0.0f, 0.0f, 0.0f));
+			
 		}
 	}
 
@@ -141,7 +147,9 @@ void Scene0::HandleEvents(const SDL_Event& sdlEvent)
 	{
 		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_S)
 		{
-			spaceShip->ApplyForce(Vec3(0.0f, -5.0f, 0.0f));
+			Vec3 currpos = spaceShip->getPos();
+			Vec3 newpos = currpos + Vec3(0.0 ,-0.5, 0.0);
+			spaceShip->setPos(newpos);
 			spaceShip->isMoving(true);
 
 		}
@@ -150,7 +158,7 @@ void Scene0::HandleEvents(const SDL_Event& sdlEvent)
 	{
 		if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_S)
 		{
-			spaceShip->ApplyForce(Vec3(0.0f, 0.0f, 0.0f));
+			
 		}
 	}
 
