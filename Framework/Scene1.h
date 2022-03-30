@@ -1,22 +1,21 @@
 #ifndef SCENE1_H
 #define SCENE1_H
 #include "Scene.h"
+#include <SDL.h>
 #include "Vector.h"
 #include "Matrix.h"
+#include "Body.h"
 #include "GameManager.h"
 using namespace MATH;
 
 /// Forward declarations 
 union SDL_Event;
-class Mesh;
-class Shader;
-class Texture;
+class GameObject;
 
 class Scene1 : public Scene {
 private:
-	Mesh* meshPtr;
-	Shader* shaderPtr;
-	Texture* texturePtr;
+	Body* spaceShip, * planet, * obstacle, * background;
+	GameObject* gameObject;
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
 	GameManager* scene;

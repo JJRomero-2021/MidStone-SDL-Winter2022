@@ -27,7 +27,7 @@ private:
 	bool isRunning;
 	bool fullScreen;
 	Scene *currentScene;
-	Uint32 changeSceneEventType;
+	Uint32 changeSceneEventType, changeSceneEventType2;
 	void BuildScene(SCENE_NUMBER scene_);
 
 public:
@@ -39,6 +39,7 @@ public:
 	void Run();
 	void GetEvents();
 	Uint32 getChangeScene();
+	Uint32 getChangeScene2();
 };
 #endif
 

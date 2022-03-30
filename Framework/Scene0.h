@@ -12,19 +12,18 @@ using namespace MATH;
 union SDL_Event;
 class GameObject;
 class PhysicsObject;
-class Mesh;
-class Shader;
-class Texture;
+
 
 class Scene0 : public Scene {
 private:
-	Body* spaceShip, * planet, * obstacle;
+	Body* spaceShip, * planet, * obstacle, * background;
 	GameObject* gameObject;
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
 	GameManager* scene;
 	SDL_Window* windowPtr;
 	SDL_Renderer* renderer;
+	//SDL_Texture* background;
 
 
 public:

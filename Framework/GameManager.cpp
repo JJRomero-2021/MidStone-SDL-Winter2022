@@ -39,6 +39,13 @@ bool GameManager::Initialize(std::string name_, int width_, int height_)
 		currentScene->OnDestroy();
 		return false;
 	}
+
+	changeSceneEventType2 = SDL_RegisterEvents(1);
+	if (changeSceneEventType2 == ((Uint32)-1))
+	{
+		currentScene->OnDestroy();
+		return false;
+	}
 	return true;
 }
 
@@ -71,6 +78,17 @@ void GameManager::GetEvents()
 			delete currentScene;
 			currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
 			if ( ! currentScene->OnCreate())
+			{
+				isRunning = false;
+			}
+		}
+		else if (sdlEvent.type == changeSceneEventType2)
+		{
+			// switch scene
+			currentScene->OnDestroy();
+			delete currentScene;
+			currentScene = new Scene2(windowPtr->GetSDL_Window(), this);
+			if (!currentScene->OnCreate())
 			{
 				isRunning = false;
 			}
@@ -140,6 +158,10 @@ Uint32 GameManager::getChangeScene()
 	return changeSceneEventType;
 }
 
+Uint32 GameManager::getChangeScene2()
+{
+	return changeSceneEventType2;
+}
 void GameManager::BuildScene(SCENE_NUMBER scene) {
 	bool status;
 

@@ -14,6 +14,7 @@ using namespace std;
 Scene0::Scene0(SDL_Window* sdlWindow_, GameManager* scene_)
 {
 	windowPtr = sdlWindow_;
+	background = new Body(Vec3(-10.0f, 40.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
 	planet = new Body(Vec3(10.0f, 20.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
 	spaceShip = new Body(Vec3(0.0f, 7.8f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
 	obstacle = new Body(Vec3(15.0f, 25.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
@@ -24,6 +25,7 @@ Scene0::~Scene0()
 {
 	delete spaceShip;
 	delete planet;
+	delete background;
 	delete obstacle;
 }
 
@@ -52,6 +54,13 @@ bool Scene0::OnCreate()
 	projectionMatrix = ndc * ortho;
 	IMG_Init(IMG_INIT_PNG);
 
+	SDL_Surface* backgroundImage = IMG_Load("textures/Space-Background-Tiled.png");
+	SDL_Texture* backgroundTexture = SDL_CreateTextureFromSurface(renderer, backgroundImage);
+	if (backgroundImage == nullptr)
+	{
+		printf("Can't open textures/Space-Background-Tiled.png\n");
+		return false;
+	}
 	SDL_Surface* planetImage = IMG_Load("textures/earth.png");
 	SDL_Texture* planetTexture = SDL_CreateTextureFromSurface(renderer, planetImage);
 	if (planetImage == nullptr)
@@ -75,6 +84,8 @@ bool Scene0::OnCreate()
 		printf("Can't open textures/Spaceship.png\n");
 		return false;
 	}
+	background->setTexture(backgroundTexture);
+	SDL_FreeSurface(backgroundImage);
 	planet->setTexture(planetTexture);
 	SDL_FreeSurface(planetImage);
 	spaceShip->setTexture(spaceShipTexture);
@@ -196,6 +207,15 @@ void Scene0::Render()
 	int w, h;
 
 	/// Draw your scene here
+
+	screenCoords = projectionMatrix * background->getPos();
+	SDL_QueryTexture(background->getTexture(), nullptr, nullptr, &w, &h);
+	square.x = static_cast<int>(screenCoords.x);
+	square.y = static_cast<int>(screenCoords.y);
+	square.w = w * 4;
+	square.h = h * 4;
+	SDL_RenderCopyEx(renderer, background->getTexture(), nullptr, &square, 0.0, nullptr, SDL_FLIP_NONE);
+
 	screenCoords = projectionMatrix * planet->getPos();
 	SDL_QueryTexture(planet->getTexture(), nullptr, nullptr, &w, &h);
 	square.x = static_cast<int>(screenCoords.x);
