@@ -16,6 +16,7 @@ private:
 	SDL_Surface* image;
 	SDL_Texture* texture;
 	bool is_moving;
+	bool target_Detroyed;
 public:
 	Body();
 	Body(Vec3 pos_, Vec3 vel_, Vec3 accel_, float mass_);
@@ -24,6 +25,7 @@ public:
 	void ApplyForce(Vec3 force);
 	Vec3 getPos() { return pos; }
 	void isMoving(bool TorF) { is_moving = TorF; }
+	void targetDestroyed(bool TorF) { target_Detroyed = TorF; }
 	void setImage(SDL_Surface* image_) { image = image_; }
 	SDL_Surface* getImage() { return image; }
 	SDL_Texture* getTexture() { return texture; }
@@ -31,9 +33,12 @@ public:
 	Vec3 getVelocity() { return vel; }
 	void setVelocity(Vec3 vel_) { vel = vel_; }
 	void setPos(Vec3 pos_) { pos = pos_; }
+	void setRadius(float radius) { r = radius; }
 	float getRadius() { return r; }
 	float getMass() { return mass; }
 	float getRotationZ() { return rotationZ; }
+	bool getTargetDestroyed() { return target_Detroyed; }
+
 
 };
 #endif

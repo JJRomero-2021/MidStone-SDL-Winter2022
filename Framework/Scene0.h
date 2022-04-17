@@ -1,5 +1,7 @@
 #ifndef SCENE0_H
 #define SCENE0_H
+
+#include <vector>
 #include "Scene.h"
 #include <SDL.h>
 #include "Vector.h"
@@ -12,18 +14,21 @@ using namespace MATH;
 union SDL_Event;
 class GameObject;
 class PhysicsObject;
-
+class Mesh;
+class Shader;
+class Texture;
 
 class Scene0 : public Scene {
 private:
-	Body* spaceShip, * planet, * obstacle, * background;
+	Body* spaceShip, * obstacle1, * obstacle2, * obstacle3, * obstacle4, * obstacle5, * background;
 	GameObject* gameObject;
 	Matrix4 projectionMatrix;
 	Matrix4 viewMatrix;
 	GameManager* scene;
 	SDL_Window* windowPtr;
 	SDL_Renderer* renderer;
-	//SDL_Texture* background;
+	std::vector<Body*>bullets;
+	int spaceshipDirec, totalTargetsDestroyed;
 
 
 public:
