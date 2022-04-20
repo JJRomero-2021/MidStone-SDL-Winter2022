@@ -15,12 +15,13 @@ using namespace std;
 Scene3::Scene3(SDL_Window* sdlWindow_, GameManager* scene_)
 {
 	windowPtr = sdlWindow_;
+	scene = scene_;
 	title = new Body(Vec3(-4.0f, 30.0f, 0.0f), Vec3(11.3f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
 	play = new Body(Vec3(10.0f, 20.0f, 0.0f), Vec3(11.3f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
 	controlls = new Body(Vec3(10.0f, 15.0f, 0.0f), Vec3(11.3f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
 	credits = new Body(Vec3(10.0f, 10.0f, 0.0f), Vec3(11.3f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
 	quit = new Body(Vec3(10.0f, 5.0f, 0.0f), Vec3(11.3f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 0.0f), 1.0f);
-	scene = scene_;
+	
 }
 
 Scene3::~Scene3()
@@ -158,7 +159,7 @@ void Scene3::HandleEvents(const SDL_Event& sdlEvent)
 			SDL_Event event;
 			SDL_memset(&event, 0, sizeof(event));
 			event.type = scene->getChangeScene();
-			event.user.code = 4;
+			event.user.code = 6;
 			event.user.data1 = nullptr;
 			event.user.data2 = nullptr;
 			SDL_PushEvent(&event);
@@ -170,7 +171,7 @@ void Scene3::HandleEvents(const SDL_Event& sdlEvent)
 			SDL_Event event;
 			SDL_memset(&event, 0, sizeof(event));
 			event.type = scene->getChangeScene();
-			event.user.code = 5;
+			event.user.code = 7;
 			event.user.data1 = nullptr;
 			event.user.data2 = nullptr;
 			SDL_PushEvent(&event);
@@ -182,7 +183,7 @@ void Scene3::HandleEvents(const SDL_Event& sdlEvent)
 			SDL_Event event;
 			SDL_memset(&event, 0, sizeof(event));
 			event.type = scene->getChangeScene();
-			event.user.code = 3;
+			event.user.code = 5;
 			event.user.data1 = nullptr;
 			event.user.data2 = nullptr;
 			SDL_PushEvent(&event);

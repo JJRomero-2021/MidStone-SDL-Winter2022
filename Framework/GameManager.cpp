@@ -33,7 +33,7 @@ bool GameManager::Initialize(std::string name_, int width_, int height_)
 	{
 		return false;
 	}
-	BuildScene(SCENE3);
+	BuildScene(SCENE0);
 
 	//create some user defined event
 	changeSceneEventType = SDL_RegisterEvents(1);
@@ -77,27 +77,38 @@ void GameManager::GetEvents()
 		else if (sdlEvent.type == changeSceneEventType)
 		{
 			switch (sdlEvent.user.code) {
+			
 			case 1:
 
 				BuildScene(SCENE0);
 				break;
 
-
 			case 2:
-				BuildScene(SCENE3);
+
+				BuildScene(SCENE1);
 				break;
-			
+
 			case 3:
-				isRunning = false;
+
+				BuildScene(SCENE2);
 				break;
-			
+
 			case 4:
-				BuildScene(SCENE4);
+				BuildScene(SCENE3);
 				break;
 
 			case 5:
+				isRunning = false;
+				break;
+
+			case 6:
+				BuildScene(SCENE4);
+				break;
+
+			case 7:
 				BuildScene(SCENE5);
 				break;
+
 			}
 			
 

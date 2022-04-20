@@ -20,15 +20,16 @@ class Texture;
 
 class Scene0 : public Scene {
 private:
-	Body* spaceShip, * obstacle1, * obstacle2, * obstacle3, * obstacle4, * obstacle5, * background;
+	Body* spaceShip, * obstacle1, * obstacle2, * obstacle3, * obstacle4, * obstacle5, * background, * planet, * sun, * mars, * jupiter;
 	GameObject* gameObject;
-	Matrix4 projectionMatrix;
+	Matrix4 projectionMatrix, inverseProjection;
 	Matrix4 viewMatrix;
 	GameManager* scene;
 	SDL_Window* windowPtr;
 	SDL_Renderer* renderer;
 	std::vector<Body*>bullets;
 	int spaceshipDirec, totalTargetsDestroyed;
+	bool spaceShipDestroyed;
 
 
 public:

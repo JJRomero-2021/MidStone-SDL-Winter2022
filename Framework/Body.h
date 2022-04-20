@@ -17,6 +17,8 @@ private:
 	SDL_Texture* texture;
 	bool is_moving;
 	bool target_Detroyed;
+	bool obstactle_original_texture;
+	bool obstactle_blast_texture;
 public:
 	Body();
 	Body(Vec3 pos_, Vec3 vel_, Vec3 accel_, float mass_);
@@ -26,6 +28,8 @@ public:
 	Vec3 getPos() { return pos; }
 	void isMoving(bool TorF) { is_moving = TorF; }
 	void targetDestroyed(bool TorF) { target_Detroyed = TorF; }
+	void obstacleOriginalTexture(bool TorF) { obstactle_original_texture = TorF; }
+	void obstacleBlastTexture(bool TorF) { obstactle_blast_texture = TorF; }
 	void setImage(SDL_Surface* image_) { image = image_; }
 	SDL_Surface* getImage() { return image; }
 	SDL_Texture* getTexture() { return texture; }
@@ -38,7 +42,8 @@ public:
 	float getMass() { return mass; }
 	float getRotationZ() { return rotationZ; }
 	bool getTargetDestroyed() { return target_Detroyed; }
-
+	bool getObstactleOriginalTexture() { return obstactle_original_texture; }
+	bool getObstactleBlastTexture() { return obstactle_blast_texture; }
 
 };
 #endif
