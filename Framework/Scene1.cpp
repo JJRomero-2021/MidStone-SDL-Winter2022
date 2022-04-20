@@ -82,11 +82,11 @@ bool Scene1::OnCreate()
 	SDL_GetWindowSize(windowPtr, &w, &h);
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
-	Matrix4 ortho = MMath::orthographic(-10.0f, 30.0f, -10.0f, 40.0f, 0.0f, 1.0f);
+	Matrix4 ortho = MMath::orthographic(0.0f, 40.0f, 0.0f, 50.0f, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
 	IMG_Init(IMG_INIT_PNG);
 
-	SDL_Surface* backgroundImage = IMG_Load("textures/Space-Background-Tiled2.jpg");
+	SDL_Surface* backgroundImage = IMG_Load("textures/Space-Background-Tiled.png");
 	SDL_Texture* backgroundTexture = SDL_CreateTextureFromSurface(renderer, backgroundImage);
 	if (backgroundImage == nullptr)
 	{
@@ -177,23 +177,22 @@ bool Scene1::OnCreate()
 	background->setTexture(backgroundTexture);
 	SDL_FreeSurface(backgroundImage);
 
-	enemy1->setTexture(enemyTexture);
-	SDL_FreeSurface(enemyImage);
+	enemy1->setTexture(enemyTexture);	
 	enemy1->obstacleOriginalTexture(true);
 	enemy1->obstacleBlastTexture(false);
 
 	enemy2->setTexture(enemyTexture);
-	SDL_FreeSurface(enemyImage);
+
 	enemy2->obstacleOriginalTexture(true);
 	enemy2->obstacleBlastTexture(false);
 
 	enemy3->setTexture(enemyTexture);
-	SDL_FreeSurface(enemyImage);
+	
 	enemy3->obstacleOriginalTexture(true);
 	enemy3->obstacleBlastTexture(false);
 
 	enemy4->setTexture(enemyTexture);
-	SDL_FreeSurface(enemyImage);
+
 	enemy4->obstacleOriginalTexture(true);
 	enemy4->obstacleBlastTexture(false);
 
@@ -208,13 +207,13 @@ bool Scene1::OnCreate()
 	SDL_FreeSurface(bulletImage);
 
 	enemyAttack1->setTexture(enemyAttackTexture);
-	SDL_FreeSurface(enemyAttackImage);
+	
 	enemyAttack2->setTexture(enemyAttackTexture);
-	SDL_FreeSurface(enemyAttackImage);
+	
 	enemyAttack3->setTexture(enemyAttackTexture);
-	SDL_FreeSurface(enemyAttackImage);
+	
 	enemyAttack4->setTexture(enemyAttackTexture);
-	SDL_FreeSurface(enemyAttackImage);
+	
 	enemyAttack5->setTexture(enemyAttackTexture);
 	SDL_FreeSurface(enemyAttackImage);
 
@@ -389,7 +388,7 @@ void Scene1::Update(const float deltaTime)
 		float dist1 = VMath::distance(bullPos, obstacPos1);
 		if (dist1 < 2.0 && enemy1->getObstactleOriginalTexture() == true) {
 			enemy1->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = enemy1->getPos();
 			enemy1->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			enemy1->targetDestroyed(true);
@@ -401,7 +400,7 @@ void Scene1::Update(const float deltaTime)
 		float dist2 = VMath::distance(bullPos, obstacPos2);
 		if (dist2 < 2.0 && enemy2->getObstactleOriginalTexture() == true) {
 			enemy2->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = enemy2->getPos();
 			enemy2->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			enemy2->targetDestroyed(true);
@@ -413,7 +412,7 @@ void Scene1::Update(const float deltaTime)
 		float dist3 = VMath::distance(bullPos, obstacPos3);
 		if (dist3 < 2.0 && enemy3->getObstactleOriginalTexture() == true) {
 			enemy3->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = enemy3->getPos();
 			enemy3->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			enemy3->targetDestroyed(true);
@@ -425,7 +424,7 @@ void Scene1::Update(const float deltaTime)
 		float dist4 = VMath::distance(bullPos, obstacPos4);
 		if (dist4 < 2.0 && enemy4->getObstactleOriginalTexture() == true) {
 			enemy4->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = enemy4->getPos();
 			enemy4->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			enemy4->targetDestroyed(true);
@@ -437,7 +436,7 @@ void Scene1::Update(const float deltaTime)
 		float dist5 = VMath::distance(bullPos, obstacPos5);
 		if (dist5 < 2.0 && enemy5->getObstactleOriginalTexture() == true) {
 			enemy5->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = enemy5->getPos();
 			enemy5->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			enemy5->targetDestroyed(true);
@@ -543,7 +542,7 @@ void Scene1::Update(const float deltaTime)
 		SDL_Event event;
 		SDL_memset(&event, 0, sizeof(event));
 		event.type = scene->getChangeScene();
-		event.user.code = 1;
+		event.user.code = 3;
 		event.user.data1 = nullptr;
 		event.user.data2 = nullptr;
 		SDL_PushEvent(&event);

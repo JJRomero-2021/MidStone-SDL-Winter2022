@@ -113,7 +113,7 @@ void Scene4::HandleEvents(const SDL_Event& sdlEvent)
 			SDL_Event event;
 			SDL_memset(&event, 0, sizeof(event));
 			event.type = scene->getChangeScene();
-			event.user.code = 2;
+			event.user.code = 4;
 			event.user.data1 = nullptr;
 			event.user.data2 = nullptr;
 			SDL_PushEvent(&event);

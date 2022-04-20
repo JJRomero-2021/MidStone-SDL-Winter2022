@@ -71,7 +71,7 @@ bool Scene0::OnCreate()
 	SDL_GetWindowSize(windowPtr, &w, &h);
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
-	Matrix4 ortho = MMath::orthographic(-10.0f, 30.0f, -10.0f, 40.0f, 0.0f, 1.0f);
+	Matrix4 ortho = MMath::orthographic(0.0f, 40.0f, 0.0f, 50.0f, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
 	IMG_Init(IMG_INIT_PNG);
 
@@ -308,16 +308,28 @@ void Scene0::Update(const float deltaTime)
 {
 	spaceShip->Update(deltaTime);
 
+	Vec3 origin(100.0f, 20.0f, 0.0f);
+	printf("distance from origin %.2f \n", VMath::distance(spaceShip->getPos(), origin));
+	if (VMath::distance(spaceShip->getPos(), origin) < 10.0f)
+	{
+		SDL_Event event;
+		SDL_memset(&event, 0, sizeof(event));
+		event.type = scene->getChangeScene();
+		event.user.code = 2;
+		event.user.data1 = nullptr;
+		event.user.data2 = nullptr;
+		SDL_PushEvent(&event);
+	}
 
-	obstacle1->ApplyForce(Vec3(-0.4, 0.0,0.0));
+	obstacle1->ApplyForce(Vec3(-0.2, 0.0,0.0));
 	obstacle1->isMoving(true);
-	obstacle2->ApplyForce(Vec3(-0.5, 0.0, 0.0));
+	obstacle2->ApplyForce(Vec3(-0.15, 0.0, 0.0));
 	obstacle2->isMoving(true);
-	obstacle3->ApplyForce(Vec3(-0.2, 0.0, 0.0));
+	obstacle3->ApplyForce(Vec3(-0.25, 0.0, 0.0));
 	obstacle3->isMoving(true);
-	obstacle4->ApplyForce(Vec3(-0.4, 0.0, 0.0));
+	obstacle4->ApplyForce(Vec3(-0.1, 0.0, 0.0));
 	obstacle4->isMoving(true);
-	obstacle5->ApplyForce(Vec3(-0.3, 0.0, 0.0));
+	obstacle5->ApplyForce(Vec3(-0.05, 0.0, 0.0));
 	obstacle5->isMoving(true);
 
 
@@ -340,7 +352,7 @@ void Scene0::Update(const float deltaTime)
 		float dist1 = VMath::distance(bullPos, obstacPos1);
 		if (dist1 < 1.0 && obstacle1->getObstactleOriginalTexture() == true) {
 			obstacle1->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = obstacle1->getPos();
 			obstacle1->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			obstacle1->targetDestroyed(true);
@@ -352,7 +364,7 @@ void Scene0::Update(const float deltaTime)
 		float dist2 = VMath::distance(bullPos, obstacPos2);
 		if (dist2 < 1.0 && obstacle2->getObstactleOriginalTexture() == true) {
 			obstacle2->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = obstacle2->getPos();
 			obstacle2->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			obstacle2->targetDestroyed(true);
@@ -364,7 +376,7 @@ void Scene0::Update(const float deltaTime)
 		float dist3 = VMath::distance(bullPos, obstacPos3);
 		if (dist3 < 1.0 && obstacle3->getObstactleOriginalTexture() == true) {
 			obstacle3->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = obstacle3->getPos();
 			obstacle3->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			obstacle3->targetDestroyed(true);
@@ -376,7 +388,7 @@ void Scene0::Update(const float deltaTime)
 		float dist4 = VMath::distance(bullPos, obstacPos4);
 		if (dist4 < 1.0 && obstacle4->getObstactleOriginalTexture() == true) {
 			obstacle4->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = obstacle4->getPos();
 			obstacle4->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			obstacle4->targetDestroyed(true);
@@ -388,7 +400,7 @@ void Scene0::Update(const float deltaTime)
 		float dist5 = VMath::distance(bullPos, obstacPos5);
 		if (dist5 < 1.0 && obstacle5->getObstactleOriginalTexture() == true) {
 			obstacle5->setTexture(blastTexture);
-			SDL_FreeSurface(blastImage);
+			
 			Vec3 obstacCurrPos = obstacle5->getPos();
 			obstacle5->setPos(obstacCurrPos + Vec3(-0.5, 0.5, 0.0));
 			obstacle5->targetDestroyed(true);
@@ -401,7 +413,8 @@ void Scene0::Update(const float deltaTime)
 
 		
 	}
-
+	
+	SDL_FreeSurface(blastImage);
 	Vec3 spaceshipPos = spaceShip->getPos();
 	Vec3 enemyPos1 = obstacle1->getPos();
 	Vec3 enemyPos2 = obstacle2->getPos();
@@ -433,7 +446,7 @@ void Scene0::Update(const float deltaTime)
 
 	if (spaceShipDestroyed == true) {
 		spaceShip->setTexture(blastTexture);
-		SDL_FreeSurface(blastImage);
+		
 		printf("Spaceship destroyed");
 	}
 
@@ -475,18 +488,7 @@ void Scene0::Update(const float deltaTime)
 		
 	}
 
-	Vec3 origin(0.0f, 0.0f, 0.0f);
-	//printf("distance from origin %.2f \n", VMath::distance(spaceShip->getPos(), origin));
-	if (VMath::distance(spaceShip->getPos(), origin) < 1.5f)
-	{
-		SDL_Event event;
-		SDL_memset(&event, 0, sizeof(event));
-		event.type = scene->getChangeScene();
-		event.user.code = 1;
-		event.user.data1 = nullptr;
-		event.user.data2 = nullptr;
-		SDL_PushEvent(&event);
-	}
+	
 }
 
 void Scene0::Render()
@@ -517,8 +519,8 @@ void Scene0::Render()
 	SDL_QueryTexture(background->getTexture(), nullptr, nullptr, &w, &h);
 	square.x = static_cast<int>(screenCoords.x);
 	square.y = static_cast<int>(screenCoords.y);
-	square.w = w * 4;
-	square.h = h * 4;
+	square.w = w * 10;
+	square.h = h * 10;
 	SDL_RenderCopyEx(renderer, background->getTexture(), nullptr, &square, 0.0, nullptr, SDL_FLIP_NONE);
 
 	screenCoords = projectionMatrix * sun->getPos();

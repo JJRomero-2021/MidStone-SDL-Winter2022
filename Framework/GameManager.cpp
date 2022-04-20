@@ -33,7 +33,7 @@ bool GameManager::Initialize(std::string name_, int width_, int height_)
 	{
 		return false;
 	}
-	BuildScene(SCENE0);
+	BuildScene(SCENE3);
 
 	//create some user defined event
 	changeSceneEventType = SDL_RegisterEvents(1);

@@ -15,12 +15,12 @@ class PhysicsObject;
 
 class Scene2 : public Scene {
 private:
-	Body* spaceShip, * boss, * obstacle, * background, * minion, * minion1;
+	Body* spaceShip, * boss, * obstacle, * background, * sun, * planet, * minion, * minion1;
 	GameObject* gameObject;
-	Matrix4 projectionMatrix;
+	Matrix4 projectionMatrix, inverseProjection;
 	Matrix4 viewMatrix;
 	GameManager* scene;
-	SDL_Window* window;
+	SDL_Window* windowPtr;
 	SDL_Renderer* renderer;
 
 public:
