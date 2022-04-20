@@ -4,6 +4,9 @@
 #include "Scene0.h"
 #include "Scene1.h"
 #include "Scene2.h"
+#include "Scene3.h"
+#include "Scene4.h"
+#include "Scene5.h"
 #include <iostream>
 
 GameManager::GameManager() {
@@ -30,7 +33,7 @@ bool GameManager::Initialize(std::string name_, int width_, int height_)
 	{
 		return false;
 	}
-	BuildScene(SCENE0);
+	BuildScene(SCENE3);
 
 	//create some user defined event
 	changeSceneEventType = SDL_RegisterEvents(1);
@@ -73,14 +76,31 @@ void GameManager::GetEvents()
 		}
 		else if (sdlEvent.type == changeSceneEventType)
 		{
-			// switch scene
-			currentScene->OnDestroy();
-			delete currentScene;
-			currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
-			if ( ! currentScene->OnCreate())
-			{
+			switch (sdlEvent.user.code) {
+			case 1:
+
+				BuildScene(SCENE0);
+				break;
+
+
+			case 2:
+				BuildScene(SCENE3);
+				break;
+			
+			case 3:
 				isRunning = false;
+				break;
+			
+			case 4:
+				BuildScene(SCENE4);
+				break;
+
+			case 5:
+				BuildScene(SCENE5);
+				break;
 			}
+			
+
 		}
 		else if (sdlEvent.type == changeSceneEventType2)
 		{
@@ -128,6 +148,24 @@ void GameManager::GetEvents()
 				}
 				else {
 					BuildScene(SCENE2);
+				}
+				break;
+
+			case SDL_SCANCODE_F4:
+				if (state[SDL_SCANCODE_RSHIFT] || state[SDL_SCANCODE_LSHIFT]) {
+					//BuildScene(SCENE3_ADV);
+				}
+				else {
+					BuildScene(SCENE3);
+				}
+				break;
+
+			case SDL_SCANCODE_F6:
+				if (state[SDL_SCANCODE_RSHIFT] || state[SDL_SCANCODE_LSHIFT]) {
+					//BuildScene(SCENE4_ADV);
+				}
+				else {
+					BuildScene(SCENE4);
 				}
 				break;
 
@@ -187,9 +225,28 @@ void GameManager::BuildScene(SCENE_NUMBER scene) {
 		status = currentScene->OnCreate();
 		break;
 
+	case SCENE3:
+		currentScene = new Scene3(windowPtr->GetSDL_Window(), this);
+		status = currentScene->OnCreate();
+		break;
+	
+	case SCENE4:
+		currentScene = new Scene4(windowPtr->GetSDL_Window(), this);
+		status = currentScene->OnCreate();
+		break;
+
+	case SCENE5:
+		currentScene = new Scene5(windowPtr->GetSDL_Window(), this);
+		status = currentScene->OnCreate();
+		break;
+
 	default:
 		currentScene = nullptr;
 		break;
+
+	}
+	if (! status) {
+		isRunning = false;
 	}
 }
 GameManager::~GameManager() 
